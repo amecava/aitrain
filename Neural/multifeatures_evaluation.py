@@ -360,7 +360,7 @@ prediction_set = train[OUTPUT]
 
 # Train and Test split
 
-x_train, x_test, y_train, y_test = train_test_split(training_set[FEATURES], prediction_set, test_size=0.1, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(training_set[FEATURES], prediction_set, test_size=1e-1, random_state=42)
 y_train = pd.DataFrame(y_train, columns=[OUTPUT])
 training_set = pd.DataFrame(x_train, columns=FEATURES).merge(y_train, left_index=True, right_index=True)
 
@@ -374,7 +374,7 @@ testing_set = pd.DataFrame(x_test, columns=FEATURES).merge(y_test, left_index=Tr
 # Model
 
 tf.logging.set_verbosity(tf.logging.INFO)
-regressor = tf.contrib.learn.DNNRegressor(hidden_units=[256, 128, 64], feature_columns=feature_cols, activation_fn=tf.nn.leaky_relu, optimizer=tf.train.AdagradOptimizer(learning_rate=1e-1, initial_accumulator_value=1e-2)) # model_dir = 'regressor'
+regressor = tf.contrib.learn.DNNRegressor(hidden_units=[256, 128, 64], feature_columns=feature_cols, activation_fn=tf.nn.leaky_relu) # model_dir = 'regressor'
 
 # Reset the index of training
 
