@@ -14,4 +14,4 @@
 *.pyo 		binary
 
 # Perform LF normalization
-*text = auto
+*text=auto
