@@ -402,8 +402,6 @@ predictions = list(itertools.islice(y, testing_set.shape[0]))
 
 # Plot predictions x reality on dataset graph
 
-print(predictions)
-
 predictions = prepro_y.inverse_transform(np.array(predictions).reshape(len(x_test), 1))
 reality = pd.DataFrame(prepro.inverse_transform(testing_set), columns=[COLUMNS])[OUTPUT].values
 

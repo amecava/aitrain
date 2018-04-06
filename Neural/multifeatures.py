@@ -353,7 +353,7 @@ testing_set = pd.DataFrame(x_test, columns=FEATURES).merge(y_test, left_index=Tr
 # Model
 
 tf.logging.set_verbosity(tf.logging.INFO)
-regressor = tf.contrib.learn.DNNRegressor(hidden_units=[256, 128, 64], feature_columns=feature_cols, activation_fn=tf.nn.leaky_relu) # model_dir = 'regressor'
+regressor = tf.estimator.DNNRegressor(hidden_units=[256, 128, 64], feature_columns=feature_cols, activation_fn=tf.nn.leaky_relu) # model_dir = 'regressor'
 
 # Reset the index of training
 
@@ -361,7 +361,7 @@ training_set.reset_index(drop=True, inplace=True)
 
 # Deep Neural Network Regressor with the training set which contain the data split by train test split
 
-regressor.fit(input_fn=lambda: input_fn(training_set), steps=EPOCHS)
+regressor.train(input_fn=lambda: input_fn(training_set), steps=EPOCHS)
 
 # Evaluation on the test set created by train_test_split
 
@@ -381,7 +381,7 @@ print('')
 # Predictions on testing set
 
 '''
-y = regressor.predict_scores(input_fn=lambda: input_fn(testing_set))
+y = regressor.predict(input_fn=lambda: input_fn(testing_set))
 predictions = list(itertools.islice(y, testing_set.shape[0]))
 '''
 
@@ -413,7 +413,7 @@ plt.show()
 
 # Prediction on input dataset
 
-y_predict = regressor.predict_scores(input_fn=lambda: input_fn(input_dataset, pred=True))
+y_predict = regressor.predict(input_fn=lambda: input_fn(input_dataset, pred=True))
 
 def to_submit(pred_y):
 
