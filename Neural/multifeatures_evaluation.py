@@ -47,7 +47,7 @@ sess = tf.InteractiveSession()
 
 # Initial variable setup
 
-EPOCHS = 1000
+EPOCHS = 500
 
 FOLDER_PATH1 = os.path.dirname(os.path.abspath(__file__))
 FOLDER_PATH2 = 'datasets'
@@ -402,7 +402,7 @@ predictions = list(itertools.islice(y, testing_set.shape[0]))
 
 # Plot predictions x reality on dataset graph
 
-predictions = prepro_y.inverse_transform(np.array(predictions).reshape(len(x_test), 1))
+predictions = prepro_y.inverse_transform(np.array([x['predictions'] for x in predictions]).reshape(len(x_test), 1))
 reality = pd.DataFrame(prepro.inverse_transform(testing_set), columns=[COLUMNS])[OUTPUT].values
 
 font = {'family' : 'normal',
