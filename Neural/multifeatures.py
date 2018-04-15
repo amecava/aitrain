@@ -48,7 +48,7 @@ sess = tf.InteractiveSession()
 
 # Initial variable setup
 
-EPOCHS = 1000
+EPOCHS = 500
 
 FOLDER_PATH1 = os.path.dirname(os.path.abspath(__file__))
 FOLDER_PATH2 = 'datasets'
@@ -418,13 +418,11 @@ y_predict = regressor.predict(input_fn=lambda: input_fn(input_dataset, pred=True
 def to_submit(pred_y):
 
     y_predict2 = list(itertools.islice(pred_y, input_dataset.shape[0]))
-    y_predict2 = pd.DataFrame(prepro_y.inverse_transform(np.array(y_predict2).reshape(len(y_predict2), 1)), columns=[OUTPUT])
+    y_predict2 = pd.DataFrame(prepro_y.inverse_transform(np.array([x['predictions'] for x in y_predict2]).reshape(len(y_predict2), 1)), columns=[OUTPUT])
 
     return y_predict2
 
 results = to_submit(y_predict)
 
-print('')
-print(input_dataset)
 print('')
 print(results) 
