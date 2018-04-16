@@ -1,4 +1,4 @@
-# A.I. Train
+# AI Train
 
 One Paragraph of project description goes here
 
