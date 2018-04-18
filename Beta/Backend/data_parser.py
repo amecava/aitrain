@@ -98,7 +98,7 @@ def import_sessions():
     df_session = df_session[da_tenere]
     # df con tutte le session
 
-    return df_session, df_exercises
+    return df_session
 
 def import_wellness():
     #lista csv
@@ -147,7 +147,7 @@ def recupera_esercizi(riga_df, df_session_player_temp):
 
 def import_data():
     #df con tutti i wellness
-    df_session, df_exercises = import_sessions()
+    df_session = import_sessions()
     wellness_df = import_wellness()
 
     pd.value_counts(df_session['playerName'], dropna=False)
