@@ -8,12 +8,18 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import absolute_import
 
-import data_parser
+
+import numpy as np
+import pandas as pd
 
 import tensorflow as tf
 
+import data_parser
+
 def main(argv):
-    data_parser.main()
+    player_list = data_parser.import_data()
+
+    print(player_list[0])
 
 if __name__ == '__main__':
     tf.app.run()

@@ -19,24 +19,25 @@ FOLDER_PATH = os.path.dirname(os.path.abspath(__file__))
 SESSION_PATH = 'raw_data/sessions'
 WELLNESS_PATH = 'raw_data/wellness'
 FORMAT = '%Y-%m-%d'
-lista_colonne_utili_analisi_esercizi = ['splitName',
-                                        'workload',
-                                        'perceivedWorkload',
-                                        'metabolicWorkload',
-                                        'mechanicalWorkload',
-                                        'kinematicWorkload',
-                                        'cardioWorkload']
 
-def main():
-    def from_str_to_date(stringa):
-        timestr = stringa.split(' ')[0]
-        time = datetime.strptime(timestr, FORMAT)
-        return time
+def from_str_to_date(stringa):
+    timestr = stringa.split(' ')[0]
+    time = datetime.strptime(timestr, FORMAT)
+    return time
 
+def import_sessions():
     #importo csv_session
     df_session = pd.DataFrame()
     df_exercises = pd.DataFrame()
     list_files = os.listdir(os.path.join(FOLDER_PATH, SESSION_PATH))
+
+    lista_colonne_utili_analisi_esercizi = ['splitName',
+                                            'workload',
+                                            'perceivedWorkload',
+                                            'metabolicWorkload',
+                                            'mechanicalWorkload',
+                                            'kinematicWorkload',
+                                            'cardioWorkload']
 
     #list_files = list_files[:6] #per debug
     i = 0 #brutto ma efficace
@@ -97,6 +98,9 @@ def main():
     df_session = df_session[da_tenere]
     # df con tutte le session
 
+    return df_session, df_exercises
+
+def import_wellness():
     #lista csv
     list_files = os.listdir(os.path.join(FOLDER_PATH, WELLNESS_PATH))
 
@@ -123,7 +127,28 @@ def main():
         else:
             wellness_df = wellness_df.append(df_tempwellness, ignore_index=True)
 
+    return wellness_df
+
+def recupera_esercizi(riga_df, df_session_player_temp):
+    date = riga_df[0] #data della riga
+
+     #vado a cercare i vari campi esercizi associati alla data
+    list_execises_date = list(df_session_player_temp[df_session_player_temp['date'].isin([date])]['exercises'])
+
+    #è una lista di liste, quindi devo ricompattare
+
+    lista_esercizi = []
+    for x in list_execises_date:
+        lista_esercizi = lista_esercizi + x
+    riga_df['exercises'] = lista_esercizi
+
+
+    return riga_df
+
+def import_data():
     #df con tutti i wellness
+    df_session, df_exercises = import_sessions()
+    wellness_df = import_wellness()
 
     pd.value_counts(df_session['playerName'], dropna=False)
 
@@ -133,21 +158,6 @@ def main():
     player_list = list(df_session['playerName'].unique())
 
     #funzione che sistema i doppi allenamenti :)
-    def recupera_esercizi(riga_df):
-        date = riga_df[0] #data della riga
-
-        #vado a cercare i vari campi esercizi associati alla data
-        list_execises_date = list(df_session_player_temp[df_session_player_temp['date'].isin([date])]['exercises'])
-
-        #è una lista di liste, quindi devo ricompattare
-
-        lista_esercizi = []
-        for x in list_execises_date:
-            lista_esercizi = lista_esercizi + x
-        riga_df['exercises'] = lista_esercizi
-
-
-        return riga_df
 
     for player in player_list:
         print(player)
@@ -160,7 +170,7 @@ def main():
 
         df_session_player = df_session_player.reset_index() #non so se sia utile ma lo faccio
 
-        temp_df = df_session_player.apply(recupera_esercizi, axis=1)
+        temp_df = df_session_player.apply(recupera_esercizi, args=(df_session_player_temp,), axis=1)
 
         #metto la data come indice
         temp_df = temp_df.set_index('date')
@@ -225,7 +235,17 @@ def main():
         #rinomino la colonna index in date
         df_result.rename(columns={'index': 'date'}, inplace=True)
 
-        globals()['df_' + player] = df_result
+        globals()[player] = df_result
+
+    output_data = []
+
+    for player in player_list:
+        output_data.append(globals()[player])
+
+    return output_data
+
+def main():
+    import_data()
 
 if __name__ == '__main__':
     main()
