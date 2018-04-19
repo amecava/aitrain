@@ -57,7 +57,6 @@ def minmax_scale(dataframe):
 
     mat_dataframe = np.matrix(dataframe)
 
-    mat_new = np.matrix(dataframe.drop(OUTPUT, axis=1))
     mat_y = np.array(dataframe[OUTPUT].reshape((dataframe.shape[0], 1)))
 
     prepro_y = MinMaxScaler()
@@ -71,13 +70,10 @@ def minmax_scale(dataframe):
     return dataframe, col_dataframe, col_dataframe_bis
 
 def isolation_forest(dataframe):
-    from sklearn.ensemble import IsolationForest
-
     clf = IsolationForest(max_samples=100, random_state=42)
     clf.fit(dataframe)
     y_noano = clf.predict(dataframe)
     y_noano = pd.DataFrame(y_noano, columns=['Top'])
-    y_noano[y_noano['Top'] == 1].index.values
 
     dataframe = dataframe.iloc[y_noano[y_noano['Top'] == 1].index.values]
     dataframe.reset_index(drop=True, inplace=True)
