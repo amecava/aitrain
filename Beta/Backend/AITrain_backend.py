@@ -19,4 +19,7 @@ def main(argv):
     print(player_list[0])
 
 if __name__ == '__main__':
-    tf.app.run()
+    main = main
+    argv = [evaluation=False]
+
+    tf.app.run(main=main, argv=argv) 
