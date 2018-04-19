@@ -132,7 +132,7 @@ def import_wellness():
 def recupera_esercizi(riga_df, df_session_player_temp):
     date = riga_df[0] #data della riga
 
-     #vado a cercare i vari campi esercizi associati alla data
+    #vado a cercare i vari campi esercizi associati alla data
     list_execises_date = list(df_session_player_temp[df_session_player_temp['date'].isin([date])]['exercises'])
 
     #è una lista di liste, quindi devo ricompattare
@@ -141,7 +141,6 @@ def recupera_esercizi(riga_df, df_session_player_temp):
     for x in list_execises_date:
         lista_esercizi = lista_esercizi + x
     riga_df['exercises'] = lista_esercizi
-
 
     return riga_df
 
@@ -242,10 +241,17 @@ def import_data():
     for player in player_list:
         output_data.append(globals()[player])
 
+    return player_list, output_data
+
+def merge_data():
+    players_data = import_data()
+
+    output_data = []
+
     return output_data
 
 def main():
-    import_data()
+    players_data = import_data()
 
 if __name__ == '__main__':
     main()
