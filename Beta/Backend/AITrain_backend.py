@@ -27,14 +27,14 @@ import tensorflow as tf
 
 import data_parser
 
-MERGE = False
+MERGE = True
+IMPORT_DATA = False
 MODEL_EVALUATION = True
 
 EPOCHS = 500
-HIDDEN_UNITS = [256, 128, 64]
+HIDDEN_UNITS = [32, 16]
 
-LABEL = 'GOScore'
-OUTPUT = 'Prediction'
+OUTPUT = 'Go_score'
 
 def isolation_forest(dataframe):
     clf = IsolationForest(max_samples=100, random_state=42)
@@ -115,7 +115,7 @@ def create_dnn(train, evaluation=False):
         y = regressor.predict(input_fn=lambda: input_fn(testing_set))
         predictions = list(itertools.islice(y, testing_set.shape[0]))
 
-        predictions = prepro_y.inverse_transform(np.array(predictions).reshape(len(x_test), 1))
+        predictions = prepro_y.inverse_transform(np.array([x['predictions'] for x in predictions]).reshape(len(x_test), 1))
         reality = pd.DataFrame(prepro.inverse_transform(testing_set), columns=[COLUMNS])[OUTPUT].values
 
         font = {'family' : 'normal',
@@ -140,15 +140,7 @@ def create_dnn(train, evaluation=False):
     return regressor
 
 def save_to_json(dataframe, name=None, merge=False):
-    regressor = create_dnn(dataframe)
-
-    if merge is True:
-        #####SAVE TEAM DATAFRAME create_dnn
-        print()
-
-    if merge is False:
-        #####SAVE PLAYER DATAFRAME create_dnn
-        print()
+    #Todo
 
 def create_threads(players_list, players_data):
     threads = [threading.Thread(target=save_to_json, args=(player_data, player,)) for player, player_data in zip(players_list, players_data)]
@@ -159,20 +151,8 @@ def create_threads(players_list, players_data):
     for thread in threads:
         thread.join()
 
-def mode_selection(merge, evaluation):
-    #players_list, players_data = data_parser.import_data()
-
-
-    if evaluation is True:
-        #create_dnn(data_parser.merge_data(), evaluation)
-        create_dnn(data_parser.temporary(), evaluation)
-
-    #else:
-        #if merge is True:
-        #    save_to_json(data_parser.merge_data(), merge)
-
-        #if merge is False:
-            #create_threads(players_list, players_data)
+def mode_selection(merge, import_data, model_evaluation):
+    #Todo
 
 def main(argv):
     warnings.filterwarnings('ignore')
@@ -181,7 +161,7 @@ def main(argv):
     tf.logging.set_verbosity(tf.logging.INFO)
     sess = tf.InteractiveSession()
 
-    mode_selection(MERGE, MODEL_EVALUATION)
+    mode_selection(MERGE, IMPORT_DATA, MODEL_EVALUATION)
 
 if __name__ == '__main__':
     tf.app.run()
