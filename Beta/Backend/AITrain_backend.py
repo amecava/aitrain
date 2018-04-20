@@ -27,7 +27,7 @@ import tensorflow as tf
 
 import data_parser
 
-MERGE = True
+MERGE = False
 MODEL_EVALUATION = True
 
 EPOCHS = 500
@@ -35,39 +35,6 @@ HIDDEN_UNITS = [256, 128, 64]
 
 LABEL = 'GOScore'
 OUTPUT = 'Prediction'
-
-def input_fn(data_set, pred=False):
-
-    if pred is False:
-        feature_cols_fn = {k: tf.constant(data_set[k].values, shape=[data_set[k].size, 1]) for k in FEATURES}
-        labels = tf.constant(data_set[OUTPUT].values)
-
-        return feature_cols_fn, labels
-
-    if pred is True:
-        feature_cols_fn = {k: tf.constant(data_set[k].values, shape=[data_set[k].size, 1]) for k in FEATURES}
-
-        return feature_cols_fn
-
-def minmax_scale(dataframe):
-    col_dataframe = list(dataframe.columns)
-    col_dataframe_bis = list(dataframe.columns)
-
-    col_dataframe_bis.remove(OUTPUT)
-
-    mat_dataframe = np.matrix(dataframe)
-
-    mat_y = np.array(dataframe[OUTPUT].reshape((dataframe.shape[0], 1)))
-
-    prepro_y = MinMaxScaler()
-    prepro_y.fit(mat_y)
-
-    prepro = MinMaxScaler()
-    prepro.fit(mat_dataframe)
-
-    dataframe = pd.DataFrame(prepro.transform(mat_dataframe), columns=col_dataframe)
-
-    return dataframe, col_dataframe, col_dataframe_bis
 
 def isolation_forest(dataframe):
     clf = IsolationForest(max_samples=100, random_state=42)
@@ -80,19 +47,41 @@ def isolation_forest(dataframe):
 
     return dataframe
 
-def create_threads(players_list, players_data):
-    threads = [threading.Thread(target=save_to_json, args=(player_data, player,)) for player, player_data in zip(players_list, players_data)]
-
-    for thread in threads:
-        thread.start()
-
-    for thread in threads:
-        thread.join()
-
 def create_dnn(train, evaluation=False):
-    train = isolation_forest(train)
+    #train = isolation_forest(train)
 
-    train, COLUMNS, FEATURES = minmax_scale(train)
+    col_train = list(train.columns)
+    col_train_bis = list(train.columns)
+
+    col_train_bis.remove(OUTPUT)
+
+    mat_train = np.matrix(train)
+
+    mat_y = np.array(train[OUTPUT].reshape((train.shape[0], 1)))
+
+    prepro_y = MinMaxScaler()
+    prepro_y.fit(mat_y)
+
+    prepro = MinMaxScaler()
+    prepro.fit(mat_train)
+
+    train = pd.DataFrame(prepro.transform(train), columns=col_train)
+
+    def input_fn(data_set, pred=False):
+
+        if pred is False:
+            feature_cols_fn = {k: tf.constant(data_set[k].values, shape=[data_set[k].size, 1]) for k in FEATURES}
+            labels = tf.constant(data_set[OUTPUT].values)
+
+            return feature_cols_fn, labels
+
+        if pred is True:
+            feature_cols_fn = {k: tf.constant(data_set[k].values, shape=[data_set[k].size, 1]) for k in FEATURES}
+
+            return feature_cols_fn
+
+    COLUMNS = col_train
+    FEATURES = col_train_bis
 
     feature_cols = [tf.contrib.layers.real_valued_column(k) for k in FEATURES]
 
@@ -104,7 +93,7 @@ def create_dnn(train, evaluation=False):
         y_train = pd.DataFrame(y_train, columns=[OUTPUT])
         training_set = pd.DataFrame(x_train, columns=FEATURES).merge(y_train, left_index=True, right_index=True)
 
-        training_sub = training_set[col_dataframe]
+        training_sub = training_set[col_train]
         y_test = pd.DataFrame(y_test, columns=[OUTPUT])
         testing_set = pd.DataFrame(x_test, columns=FEATURES).merge(y_test, left_index=True, right_index=True)
 
@@ -151,25 +140,39 @@ def create_dnn(train, evaluation=False):
     return regressor
 
 def save_to_json(dataframe, name=None, merge=False):
+    regressor = create_dnn(dataframe)
+
     if merge is True:
-        #####SAVE TEAM DATAFRAME data_parser.raw_to_input create_dnn
+        #####SAVE TEAM DATAFRAME create_dnn
         print()
 
     if merge is False:
-        #####SAVE PLAYER DATAFRAME data_parser.raw_to_input create_dnn
+        #####SAVE PLAYER DATAFRAME create_dnn
         print()
 
+def create_threads(players_list, players_data):
+    threads = [threading.Thread(target=save_to_json, args=(player_data, player,)) for player, player_data in zip(players_list, players_data)]
+
+    for thread in threads:
+        thread.start()
+
+    for thread in threads:
+        thread.join()
+
 def mode_selection(merge, evaluation):
+    #players_list, players_data = data_parser.import_data()
+
+
     if evaluation is True:
-        create_dnn(data_parser.merge_data(), evaluation)
+        #create_dnn(data_parser.merge_data(), evaluation)
+        create_dnn(data_parser.temporary(), evaluation)
 
-    else:
-        if merge is True:
-            save_to_json(data_parser.merge_data(), merge)
+    #else:
+        #if merge is True:
+        #    save_to_json(data_parser.merge_data(), merge)
 
-        if merge is False:
-            players_list, players_data = data_parser.import_data()
-            create_threads(players_list, players_data)
+        #if merge is False:
+            #create_threads(players_list, players_data)
 
 def main(argv):
     warnings.filterwarnings('ignore')

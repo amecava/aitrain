@@ -243,15 +243,15 @@ def import_data():
 
     return player_list, output_data
 
-def merge_data():
+def temporary():
     players_data = import_data()
 
     output_data = []
 
-    return output_data
+    return output_data, players_data
 
 def main():
-    players_data = import_data()
+    import_data()
 
 if __name__ == '__main__':
     main()
