@@ -60,8 +60,8 @@
   width: calc(100% / 3);
   float: left;
   text-align: center;
-  border-left: 1px solid #EBEBEB;
 }
+
 .stat .label{
   display: block;
   text-transform: uppercase;
@@ -72,6 +72,54 @@
 }
 
 .stat .value{
+  display: block;
+  font-weight: 700;
+  font-size:20px;
+  margin-top: 5px;
+}
+
+.stat_left{
+  box-sizing: border-box;
+  width: calc(100% / 3);
+  float: left;
+  text-align: center;
+  border-right: 1px solid #EBEBEB;
+}
+
+.stat_left .label{
+  display: block;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #95989A;
+}
+
+.stat_left .value{
+  display: block;
+  font-weight: 700;
+  font-size:20px;
+  margin-top: 5px;
+}
+
+.stat_right{
+  box-sizing: border-box;
+  width: calc(100% / 3);
+  float: left;
+  text-align: center;
+  border-left: 1px solid #EBEBEB;
+}
+
+.stat_right .label{
+  display: block;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #95989A;
+}
+
+.stat_right .value{
   display: block;
   font-weight: 700;
   font-size:20px;

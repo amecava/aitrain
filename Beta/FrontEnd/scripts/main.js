@@ -140,7 +140,7 @@ var html =  '<div class="box_pl">\
                     <div class="card-body-lp">\
                         <h2 class="name">{0}</h2>\
                         <div class="stats">\
-                            <div class="stat">\
+                            <div class="stat_left">\
                             <span>Go Score</span>\
                             <span class="value">{1}</span>\
                             </div>\
@@ -148,7 +148,7 @@ var html =  '<div class="box_pl">\
                             <span>Condition</span>\
                             <span class="value">{2}</span>\
                             </div>\
-                            <div class="stat">\
+                            <div class="stat_right">\
                             <span>Trend</span>\
                             <span class="value">{3}</span>\
                             </div>\
