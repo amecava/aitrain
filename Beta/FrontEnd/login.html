@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -41,7 +42,7 @@
     <link href="assets/css/main.css" rel="stylesheet">
 
     <!-- Link a main.js -->
-    <script type="text/javascript" src="scripts/main.js"></script>
+    <!--<script type="text/javascript" src="scripts/main.js"></script>-->
     <script type="text/javascript" src="assets/vendor/jquery/jquery.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -49,6 +50,22 @@
     <script src="assets/vendor/html5shiv.js"></script>
     <script src="assets/vendor/respond.min.js"></script>
     <![endif]-->
+    <script>
+        function LoginCheck() {
+            $(document).on("submit", "#formLogin", function() {
+                var username = $("#username").val();
+                var passwd = $("#passwd").val();
+
+                if (username == "prova" && passwd == "prova") {
+                    document.location = "dashboard.html";
+                }
+            });
+        }
+        $(document).ready(function() {
+            //Mettere tutte le funzioni da inizializzare all'avvio dell'app
+            LoginCheck();
+        })
+    </script>
 </head>
 
 <body class="login-bg">
@@ -59,28 +76,28 @@
                 <!--login form-->
                 <div class="login-form">
                     <h1 class=" text-dark text-center mb-5">Login</h4>
-                    <form id="formLogin">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="username" placeholder="Enter email">
-                        </div>
-                        <div class="form-group mb-4">
-                            <input type="password" class="form-control" id="passwd" placeholder="Enter Password">
-                        </div>
+                        <form id="formLogin">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="username" placeholder="Enter email">
+                            </div>
+                            <div class="form-group mb-4">
+                                <input type="password" class="form-control" id="passwd" placeholder="Enter Password">
+                            </div>
 
-                        <div class="form-group clearfix">
-                            <a href="#" class="float-left forgot-link my-2">Forgot Password ?</a>
-                            <button type="submit" class="btn btn-dark float-right">Login</button>
-                        </div>   
-                    </form>
+                            <div class="form-group clearfix">
+                                <a href="#" class="float-left forgot-link my-2">Forgot Password ?</a>
+                                <button type="submit" class="btn btn-dark float-right">Login</button>
+                            </div>
+                        </form>
                 </div>
                 <!--/login form-->
 
                 <!--login promo-->
                 <div class="login-promo basic-gradient text-white position-relative">
                     <div class="login-promo-content text-center">
-                        
-                            <img src="assets/img/logo_white.png" height="225px" width="100%" alt="">
-                        
+
+                        <img src="assets/img/logo_white.png" height="225px" width="100%" alt="">
+
                     </div>
                 </div>
                 <!--/login promo-->
@@ -105,5 +122,5 @@
     <!--basic scripts initialization-->
     <script src="assets/js/scripts.js"></script>
 </body>
-</html>
 
+</html>

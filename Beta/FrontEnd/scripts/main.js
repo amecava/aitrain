@@ -1,22 +1,37 @@
-$(document).ready(function(){
+///////////////////////////////////////////////////////
+// Parte di define/variabili globali
+allenamento_vuoto = {
+    "workload_mean": 0,
+    //"perceivedWorkload_mean": 0,
+    "metabolicWorkload_mean": 0,
+    "mechanicalWorkload_mean": 0,
+    "kinematicWorkload_mean": 0
+};
+
+indirizzo_base = 'http://localhost:8080/res/';
+///////////////////////////////
+
+$(document).ready(function() {
     //Mettere tutte le funzioni da inizializzare all'avvio dell'app
-    LoginCheck();
-    RadarReload();
+    //LoginCheck();
+    RadarReload()
+    CreateChart();
     loadPlayer();
 });
 
-function LoginCheck(){
-    $(document).on("submit", "#formLogin", function(){
+function LoginCheck() {
+    $(document).on("submit", "#formLogin", function() {
         var username = $("#username").val();
         var passwd = $("#passwd").val();
 
-        if(username == "prova" && passwd == "prova")
+        if (username == "prova" && passwd == "prova") {
             window.location = "dashboard.html";
+        }
     });
 }
 
-function RadarReload(){
-    $(document).on("change", "#option_s3,#option_s8", function(){
+function RadarReload() {
+    $(document).on("change", "#option_s3,#option_s8", function() {
         CreateChart();
         loadPlayer();
     });
@@ -65,48 +80,50 @@ function CreateChart() {
     allenamento_values = getValues(allenamento1);
     allenamento_teorico = getValues(AllenamentoTeorico());
 
-    var chart = AmCharts.makeChart( "divchart", {
+    var chart = AmCharts.makeChart("divchart", {
         "type": "radar",
         "theme": "dark",
-        "dataProvider": [ {
-          "name": allenamento_labels[0],
-          "value": allenamento_values[0],
+        "dataProvider": [{
+            "name": allenamento_labels[0].split("_", 1),
+            "value": allenamento_values[0],
             "teorico": allenamento_teorico[0]
         }, {
-            "name": allenamento_labels[1],
-          "value": allenamento_values[1],
-          "teorico": allenamento_teorico[1]
+            "name": allenamento_labels[1].split("_", 1),
+            "value": allenamento_values[1],
+            "teorico": allenamento_teorico[1]
         }, {
-            "name": allenamento_labels[2],
-          "value": allenamento_values[2],
-          "teorico": allenamento_teorico[2]
+            "name": allenamento_labels[2].split("_", 1),
+            "value": allenamento_values[2],
+            "teorico": allenamento_teorico[2]
         }, {
-            "name": allenamento_labels[3],
-          "value": allenamento_values[3],
-          "teorico": allenamento_teorico[3]
+            "name": allenamento_labels[3].split("_", 1),
+            "value": allenamento_values[3],
+            "teorico": allenamento_teorico[3]
         }],
-        "valueAxes": [ {
-          "axisTitleOffset": 20,
-          "minimum": 0,
-          "axisAlpha": 0.15
-        } ],
-        "graphs": [ {
-          "balloonText": "[[value]]",
-          "bullet": "round",
-          "lineThickness": 2,
-          "valueField": "value"
-        } ,
-        {
-            "balloonText": "[[value]]",
-            "bullet": "round",
-            "lineThickness": 2,
-            "valueField": "teorico"
-          }],
+        "valueAxes": [{
+            "axisTitleOffset": 20,
+            "minimum": 0,
+            "maximum": 80,
+            "axisAlpha": 0.15
+        }],
+        "graphs": [{
+                "balloonText": "[[value]]",
+                "bullet": "round",
+                "lineThickness": 2,
+                "valueField": "value"
+            },
+            {
+                "balloonText": "[[value]]",
+                "bullet": "round",
+                "lineThickness": 2,
+                "valueField": "teorico"
+            }
+        ],
         "categoryField": "name",
         "export": {
-          "enabled": true
+            "enabled": true
         }
-      } );
+    });
 }
 
 // funzione che prende un oggetto e restituisce un array con le sue keys
@@ -127,8 +144,8 @@ function getValues(obj) {
     return values;
 }
 
-function loadPlayer(){
-var html =  '<div class="box_pl">\
+function loadPlayer() {
+    var html = '<div class="box_pl">\
             <div id="card_pl">\
                 <div id="blur">\
                     <div id="color"></div>\
@@ -157,31 +174,29 @@ var html =  '<div class="box_pl">\
                 </div>\
             </div>\
             </div>';
-
-    var result = Predizione();
-    $(".card_pl").remove();
-    for(var i=0; i<result.length; i++){
-        var thisHtml = html;
+    var result = 0;
+    result = Predizione();
+    $(".box_pl").remove();
+    for (var i = 0; i < result.length; i++) {
+        var thisHtml = 0;
+        thisHtml = html;
         thisHtml = thisHtml.replace("{0}", result[i].playerName);
-        thisHtml = thisHtml.replace("{1}", result[i].Go_score+1);
-        thisHtml = thisHtml.replace("{2}", GoScoreCondition(result[i].Go_score+1));
-        thisHtml = thisHtml.replace("{3}", GoScoreTrend(result[i].Go_score+1, result[i].Go_score));
+        thisHtml = thisHtml.replace("{1}", result[i]['Go_score+1'].toFixed(1));
+        thisHtml = thisHtml.replace("{2}", GoScoreCondition(result[i]['Go_score+1']));
+        thisHtml = thisHtml.replace("{3}", GoScoreTrend(result[i]['Go_score+1'], result[i].Go_score));
         $(".playerList").append(thisHtml);
     }
 
 }
 
-function GoScoreCondition(val){
-    if(val > 4.5)
-        return "<div class='square green'></div>";
-    if(val > 4 && val <=4.5)
-        return "<div class='square yellow'></div>";
+function GoScoreCondition(val) {
+    if (val > 4.5) { return "<div class='square green'></div>"; }
+    if (val > 4 && val <= 4.5) { return "<div class='square yellow'></div>"; }
     return "<div class='square red'></div>";
 }
 
-function GoScoreTrend(val1, val2){
-    if(val1 >= val2)
-        return "<div class='square green'></div>";
+function GoScoreTrend(val1, val2) {
+    if (val1 >= val2) { return "<div class='square green'></div>"; }
     return "<div class='square red'></div>";
 }
 
@@ -191,7 +206,7 @@ function CaricaJSON(name) {
     var xyz = null
 
     $.ajax({
-        url: 'http://localhost:8080/res/' + name,
+        url: indirizzo_base + name,
         async: false,
         success: function(data) {
             xyz = JSON.parse(data);
@@ -213,13 +228,7 @@ function ElencoEsercizi(array_json_esercizi) {
 function AllenamentoTeorico() {
     var sel = document.getElementById('option_s8');
 
-    dati_allenamento_teorico = {
-        "workload_mean": 0,
-        //"perceivedWorkload_mean": 0,
-        "metabolicWorkload_mean": 0,
-        "mechanicalWorkload_mean": 0,
-        "kinematicWorkload_mean": 0
-    }
+    dati_allenamento_teorico = allenamento_vuoto;
 
     if (sel.value === "md-1") {
 
@@ -279,7 +288,7 @@ function CalcolaAllenamento(array_esercizi_selezionati) {
     ///////////////////////////////////////////////////////////////////////////////////
     dati_allenamento = {
             "workload_mean": 0,
-           //"perceivedWorkload_mean": 0,
+            //"perceivedWorkload_mean": 0,
             "metabolicWorkload_mean": 0,
             "mechanicalWorkload_mean": 0,
             "kinematicWorkload_mean": 0

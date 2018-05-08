@@ -1,152 +1,154 @@
 #card_pl {
-	width: 225px;
-	height: 275px;
-	position: relative;
-	border-radius: 5px;
-	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2), 0px 2px 6px rgba(0, 0, 0, 0.4);
-	overflow: hidden;
+    width: 225px;
+    height: 275px;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2), 0px 2px 6px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
 }
 
 #color {
-	background: rgba(255, 255, 255, .60);
-	width: 430px;
-	height: 330px;
+    background: rgba(255, 255, 255, .60);
+    width: 430px;
+    height: 330px;
 }
 
 #profile {
-	cursor: grabbing;
-	width: 225px;
-	height: 275px;
-	position: relative;
-	top: -330px;
-	border-radius: 5px;
+    cursor: grabbing;
+    width: 225px;
+    height: 275px;
+    position: relative;
+    top: -330px;
+    border-radius: 5px;
 }
 
 @keyframes entrance-first {
-	0% {
-		top: 200px;
-	}
-	100% {
-		top: 144px;
-	}
+    0% {
+        top: 200px;
+    }
+    100% {
+        top: 144px;
+    }
 }
 
 @keyframes entrance-second {
-	0% {
-		top: 200px;
-	}
-	100% {
-		top: 144px;
-	}
+    0% {
+        top: 200px;
+    }
+    100% {
+        top: 144px;
+    }
 }
 
 .box_pl {
-  width: 250px;
-	height: 300px;
+    width: 250px;
+    height: 300px;
 }
 
 .profile_img {
-	width: 100px;
-	height: 100px;
-	border-radius: 8px;
-	position: relative;
-	top: 32px;
-	display: block;
-	margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    position: relative;
+    top: 32px;
+    display: block;
+    margin: 0 auto;
 }
 
-.stat{
-  box-sizing: border-box;
-  width: calc(100% / 3);
-  float: left;
-  text-align: center;
+.stat {
+    box-sizing: border-box;
+    width: calc(100% / 3);
+    float: left;
+    text-align: center;
 }
 
-.stat .label{
-  display: block;
-  text-transform: uppercase;
-  font-weight: 300;
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: #95989A;
+.stat .label {
+    display: block;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #95989A;
 }
 
-.stat .value{
-  display: block;
-  font-weight: 700;
-  font-size:20px;
-  margin-top: 5px;
+.stat .value {
+    display: block;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 5px;
 }
 
-.stat_left{
-  box-sizing: border-box;
-  width: calc(100% / 3);
-  float: left;
-  text-align: center;
-  border-right: 1px solid #EBEBEB;
+.stat_left {
+    box-sizing: border-box;
+    width: calc(100% / 3);
+    float: left;
+    text-align: center;
+    border-right: 1px solid #EBEBEB;
 }
 
-.stat_left .label{
-  display: block;
-  text-transform: uppercase;
-  font-weight: 300;
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: #95989A;
+.stat_left .label {
+    display: block;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #95989A;
 }
 
-.stat_left .value{
-  display: block;
-  font-weight: 700;
-  font-size:20px;
-  margin-top: 5px;
+.stat_left .value {
+    display: block;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 5px;
 }
 
-.stat_right{
-  box-sizing: border-box;
-  width: calc(100% / 3);
-  float: left;
-  text-align: center;
-  border-left: 1px solid #EBEBEB;
+.stat_right {
+    box-sizing: border-box;
+    width: calc(100% / 3);
+    float: left;
+    text-align: center;
+    border-left: 1px solid #EBEBEB;
 }
 
-.stat_right .label{
-  display: block;
-  text-transform: uppercase;
-  font-weight: 300;
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: #95989A;
+.stat_right .label {
+    display: block;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #95989A;
 }
 
-.stat_right .value{
-  display: block;
-  font-weight: 700;
-  font-size:20px;
-  margin-top: 5px;
+.stat_right .value {
+    display: block;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 5px;
 }
 
-.square{
+.square {
     width: 20px;
     height: 20px;
     margin: 0 auto;
 }
 
-.card-body-lp{
-  text-align:center;
-  padding-left: 0;
+.card-body-lp {
+    text-align: center;
+    padding-left: 0;
 }
 
-card_lp:first-child{
-    display: hidden;
+.box_pl:first-child {
+    display: none;
 }
 
-.green{
+.green {
     background-color: green;
 }
-.red{
+
+.red {
     background-color: red;
 }
-.yellow{
+
+.yellow {
     background-color: yellow;
 }
