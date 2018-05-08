@@ -128,28 +128,35 @@ function getValues(obj) {
 }
 
 function loadPlayer(){
-var html =  '<div class="card_pl"><div class="card-header" style="background-image: url(https://res.cloudinary.com/dj14cmwoz/image/upload/v1491077482/profile-card/images/profile-picture.png)">      <div class="card-header-slanted-edge">\
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200"><path class="polygon" d="M-20,200,1000,0V200Z" /></svg>\
-            </div>\
-        </div>\
-        <div class="card-body-lp">\
-            <h2 class="name">{0}</h2>\
-            <div class="stats">\
-                    <div class="stat">\
-                    <span>Go Score +1</span>\
-                    <span class="value">{1}</span>\
-                    </div>\
-                    <div class="stat">\
-                    <span>Condition</span>\
-                    <span class="value">{2}</span>\
-                    </div>\
-                    <div class="stat">\
-                        <span>Trend</span>\
-                    <span class="value">{3}</span>\
+var html =  '<div class="box_pl">\
+            <div id="card_pl">\
+                <div id="blur">\
+                    <div id="color"></div>\
+                </div>\
+                <div id="profile">\
+                    <img class="profile_img" src="https://www.isfahanlaw.ir/wp-content/uploads/2018/02/Male-Avatar.jpg" alt="User" align="center"/>\
+                    <br>\
+                    <br>\
+                    <div class="card-body-lp">\
+                        <h2 class="name">{0}</h2>\
+                        <div class="stats">\
+                            <div class="stat">\
+                            <span>Go Score</span>\
+                            <span class="value">{1}</span>\
+                            </div>\
+                            <div class="stat">\
+                            <span>Condition</span>\
+                            <span class="value">{2}</span>\
+                            </div>\
+                            <div class="stat">\
+                            <span>Trend</span>\
+                            <span class="value">{3}</span>\
+                            </div>\
+                        </div>\
                     </div>\
                 </div>\
-        </div>\
-        </div>';
+            </div>\
+            </div>';
 
     var result = Predizione();
     $(".card_pl").remove();
@@ -184,7 +191,7 @@ function CaricaJSON(name) {
     var xyz = null
 
     $.ajax({
-        url: 'http://localhost/Luca/res/' + name,
+        url: 'http://localhost:8080/res/' + name,
         async: false,
         success: function(data) {
             xyz = JSON.parse(data);
