@@ -1,0 +1,61 @@
+function AllenamentoTeorico() {
+            var sel = document.getElementById('option_s8');
+
+            dati_allenamento_teorico = {
+                "workload_mean": 0,
+                //"perceivedWorkload_mean": 0,
+                "metabolicWorkload_mean": 0,
+                "mechanicalWorkload_mean": 0,
+                "kinematicWorkload_mean": 0
+            }
+
+            if (sel.value === "md-1") {
+
+                metabolicWorkload_mean = 35;
+                kinematicWorkload_mean = 5;
+                mechanicalWorkload_mean = 25;
+                workload_mean = 20;
+
+            }
+            if (sel.value === "md-2") {
+
+                metabolicWorkload_mean = 25;
+                kinematicWorkload_mean = 5;
+                mechanicalWorkload_mean = 20;
+                workload_mean = 15;
+
+            }
+            if (sel.value === "md-3") {
+
+                metabolicWorkload_mean = 55;
+                kinematicWorkload_mean = 25;
+                mechanicalWorkload_mean = 65;
+                workload_mean = 50;
+
+            }
+            if (sel.value === "md-4") {
+
+                metabolicWorkload_mean = 65;
+                kinematicWorkload_mean = 25;
+                mechanicalWorkload_mean = 75;
+                workload_mean = 55;
+
+            }
+            if (sel.value === "md-5") {
+
+                metabolicWorkload_mean = 45;
+                kinematicWorkload_mean = 45;
+                mechanicalWorkload_mean = 50;
+                workload_mean = 45;
+
+            }
+
+            dati_allenamento_teorico['workload_mean'] = workload_mean;
+            dati_allenamento_teorico['metabolicWorkload_mean'] = metabolicWorkload_mean;
+            dati_allenamento_teorico['mechanicalWorkload_mean'] = mechanicalWorkload_mean;
+            dati_allenamento_teorico['kinematicWorkload_mean'] = kinematicWorkload_mean;
+
+            return dati_allenamento_teorico;
+
+
+        }
