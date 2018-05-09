@@ -190,9 +190,9 @@ function loadPlayer() {
 }
 
 function GoScoreCondition(val) {
-    if (val > 4.75) { return "<font color='green'><i class='fas fa-angle-up fa-lg'></i></font>"; }
+    if (val > 4.75) { return "<font color='green'><i class='fas fa-bolt fa-lg'></i></font>"; }
     if (val > 4.25 && val <= 4.75) { return "<font color='green'><i class='fas fa-check fa-lg'></i></font>"; }
-    return "<font color='red'><i class='fas fa-angle-down fa-lg'></i></font>";
+    return "<font color='red'><i class='fas fa-fire fa-lg'></i></font>";
 }
 
 function GoScoreTrend(val1, val2) {
