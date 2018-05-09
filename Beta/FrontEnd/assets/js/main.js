@@ -24,7 +24,7 @@ function LoginCheck() {
         var username = $("#username").val();
         var passwd = $("#passwd").val();
 
-        if (username == "prova" && passwd == "prova")
+        if (username == "username" && passwd == "password")
             window.location.href = "dashboard.html";
     });
 }
@@ -201,7 +201,7 @@ function GoScoreCondition(val) {
 
 function GoScoreTrend(val1, val2) {
     if (val1 > val2) { return "<font color='green'><i class='fas fa-angle-up fa-lg'></i></font>"; }
-    if (val1 == val2) { return "<i class='fas fa-angle-right fa-lg'></i>"; }
+    if (val1 == val2) { return "<font color='green'><i class='fas fa-genderless fa-lg'></i></font>"; }
     return "<font color='red'><i class='fas fa-angle-down fa-lg'></i></font>";
 }
 
