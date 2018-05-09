@@ -137,7 +137,7 @@
     padding-left: 0;
 }
 
-.box_pl:first-child {
+.card_pl:first-child {
     display: none;
 }
 
