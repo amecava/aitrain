@@ -8,7 +8,7 @@ allenamento_vuoto = {
     "kinematicWorkload_mean": 0
 };
 
-indirizzo_base = 'http://localhost:8080/res/';
+indirizzo_base = 'http://localhost:8080/database/';
 ///////////////////////////////
 
 $(document).ready(function() {

@@ -145,15 +145,3 @@
 .card_pl:first-child {
     display: none;
 }
-
-.green {
-    background-color: green;
-}
-
-.red {
-    background-color: red;
-}
-
-.yellow {
-    background-color: yellow;
-}
