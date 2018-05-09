@@ -1,5 +1,5 @@
 #card_pl {
-    width: 225px;
+    width: 223px;
     height: 275px;
     position: relative;
     border-radius: 5px;
@@ -15,7 +15,7 @@
 
 #profile {
     cursor: grabbing;
-    width: 225px;
+    width: 223px;
     height: 275px;
     position: relative;
     top: -330px;
@@ -43,6 +43,11 @@
 .box_pl {
     width: 250px;
     height: 300px;
+}
+
+.box_pls {
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .profile_img {

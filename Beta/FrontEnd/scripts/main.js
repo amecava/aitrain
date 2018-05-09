@@ -196,7 +196,8 @@ function GoScoreCondition(val) {
 }
 
 function GoScoreTrend(val1, val2) {
-    if (val1 >= val2) { return "<div class='square green'></div>"; }
+    if (val1 > val2) { return "<div class='square green'></div>"; }
+    if (val1 == val2) { return "<div class='square yellow'></div>"; }
     return "<div class='square red'></div>";
 }
 
