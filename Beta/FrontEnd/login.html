@@ -5,10 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="Mosaddek">
-
-    <!--favicon icon-->
-    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <meta name="author" content="AITrain">
 
     <title>Login</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
@@ -40,7 +37,7 @@
     <link href="assets/css/main.css" rel="stylesheet">
 
     <!-- Link a main.js -->
-    <!--<script type="text/javascript" src="assets/js/main.js"></script>-->
+    <script type="text/javascript" src="assets/js/main.js"></script>
     <script type="text/javascript" src="assets/vendor/jquery/jquery.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -48,22 +45,6 @@
     <script src="assets/vendor/html5shiv.js"></script>
     <script src="assets/vendor/respond.min.js"></script>
     <![endif]-->
-    <script>
-        function LoginCheck() {
-            $(document).on("submit", "#formLogin", function() {
-                var username = $("#username").val();
-                var passwd = $("#passwd").val();
-
-                if (username == "prova" && passwd == "prova") {
-                    window.location = "dashboard.html";
-                }
-            });
-        }
-        $(document).ready(function() {
-            //Mettere tutte le funzioni da inizializzare all'avvio dell'app
-            LoginCheck();
-        })
-    </script>
 </head>
 
 <body class="login-bg">
@@ -84,7 +65,7 @@
 
                             <div class="form-group clearfix">
                                 <a href="#" class="float-left forgot-link my-2">Forgot Password ?</a>
-                                <button type="submit" class="btn btn-dark float-right">Login</button>
+                                <input type="button" id="login" value='Login' class="btn btn-dark float-right"></input>
                             </div>
                         </form>
                 </div>

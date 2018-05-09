@@ -13,20 +13,19 @@ indirizzo_base = 'http://localhost:8080/database/';
 
 $(document).ready(function() {
     //Mettere tutte le funzioni da inizializzare all'avvio dell'app
-    //LoginCheck();
+    LoginCheck();
     RadarReload()
     CreateChart();
     loadPlayer();
 });
 
 function LoginCheck() {
-    $(document).on("submit", "#formLogin", function() {
+    $(document).on("click", "#login", function() {
         var username = $("#username").val();
         var passwd = $("#passwd").val();
 
-        if (username == "prova" && passwd == "prova") {
-            window.location = "dashboard.html";
-        }
+        if (username == "prova" && passwd == "prova")
+            window.location.href = "dashboard.html";
     });
 }
 
@@ -104,7 +103,9 @@ function CreateChart() {
             "axisTitleOffset": 20,
             "minimum": 0,
             "maximum": 80,
-            "axisAlpha": 0.15
+            "axisAlpha": 0.15,
+            "autoWrap": true,
+            "labelRotation": 90
         }],
         "graphs": [{
                 "balloonText": "[[value]]",
@@ -181,6 +182,9 @@ function loadPlayer() {
         var thisHtml = 0;
         thisHtml = html;
         thisHtml = thisHtml.replace("{0}", result[i].playerName);
+
+        if (result[i]['Go_score+1'] > 5) { result[i]['Go_score+1'] = 5; }
+
         thisHtml = thisHtml.replace("{1}", result[i]['Go_score+1'].toFixed(1));
         thisHtml = thisHtml.replace("{2}", GoScoreCondition(result[i]['Go_score+1']));
         thisHtml = thisHtml.replace("{3}", GoScoreTrend(result[i]['Go_score+1'], result[i].Go_score));
