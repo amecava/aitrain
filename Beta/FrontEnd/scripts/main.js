@@ -190,15 +190,15 @@ function loadPlayer() {
 }
 
 function GoScoreCondition(val) {
-    if (val > 4.5) { return "<div class='square green'></div>"; }
-    if (val > 4 && val <= 4.5) { return "<div class='square yellow'></div>"; }
-    return "<div class='square red'></div>";
+    if (val > 4.5) { return "<font color='green'><i class='fas fa-battery-full fa-2x'></i></font>"; }
+    if (val > 4 && val <= 4.5) { return "<font color='yellow'><i class='fas fa-battery-half fa-2x'></i></font>"; }
+    return "<font color='red'><i class='fas fa-battery-quarter fa-2x'></i></font>";
 }
 
 function GoScoreTrend(val1, val2) {
-    if (val1 > val2) { return "<div class='square green'></div>"; }
-    if (val1 == val2) { return "<div class='square yellow'></div>"; }
-    return "<div class='square red'></div>";
+    if (val1 > val2) { return "<font color='green'><i class='fas fa-angle-up fa-2x'></i></font>"; }
+    if (val1 == val2) { return "<i class='fas fa-angle-right fa-2x'></i>"; }
+    return "<font color='red'><i class='fas fa-angle-down fa-2x'></i></font>";
 }
 
 //funzione che prende un nome di un file di testo contenente un JSON e va a prendere la risorsa
