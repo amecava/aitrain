@@ -26,6 +26,9 @@ function LoginCheck() {
 
         if (username == "username" && passwd == "password")
             window.location.href = "dashboard.html";
+        else {
+            alert ("Login was unsuccessful.");
+        }
     });
 }
 
