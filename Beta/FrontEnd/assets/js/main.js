@@ -102,7 +102,7 @@ function CreateChart() {
         "valueAxes": [{
             "axisTitleOffset": 20,
             "minimum": 0,
-            "maximum": 80,
+            "maximum": 100,
             "axisAlpha": 0.15,
             "autoWrap": true,
             "labelRotation": 90
